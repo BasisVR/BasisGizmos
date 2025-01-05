@@ -1,6 +1,7 @@
 {
-    "name" : "com.basis.gizmos",
-    "displayName" : "Basis Gizmos",
-    "version" : "0.0.1",
-    "description" : "Gizmos for basis framework"
+  "name": "com.basis.gizmos",
+  "displayName": "Basis Gizmos",
+  "version": "0.0.1",
+  "description": "Gizmos for basis framework",
+  "_fingerprint": "5b098deac6d115759870689224a62c562b1bf485"
 }

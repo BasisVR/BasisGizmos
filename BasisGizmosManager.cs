@@ -43,7 +43,7 @@ public static class BasisGizmoManager
 
         if (Gizmos.ContainsKey(linkedID))
         {
-            Debug.LogError($"[BasisGizmoManager] Gizmo with ID {linkedID} already exists. Use UpdateSphereGizmo to modify it.");
+            BasisDebug.LogError($"Gizmo with ID {linkedID} already exists. Use UpdateSphereGizmo to modify it.", BasisDebug.LogTag.Gizmo);
             return false;
         }
 
@@ -54,7 +54,7 @@ public static class BasisGizmoManager
         }
         if (LoadedGizmo == null)
         {
-            Debug.LogError($"[BasisGizmoManager] Failed to load Gizmo prefab from {GameobjectGizmo}");
+            BasisDebug.LogError($"Failed to load Gizmo prefab from {GameobjectGizmo}", BasisDebug.LogTag.Gizmo);
             return false;
         }
 
@@ -65,7 +65,7 @@ public static class BasisGizmoManager
         Material material = materialLoad.WaitForCompletion();
         if (material == null)
         {
-            Debug.LogError($"[BasisGizmoManager] Failed to load Gizmo material from {MaterialGizmo}");
+            BasisDebug.LogError($"Failed to load Gizmo material from {MaterialGizmo}", BasisDebug.LogTag.Gizmo);
             UnityEngine.Object.Destroy(tempSphere);
             return false;
         }
@@ -78,12 +78,12 @@ public static class BasisGizmoManager
             tempSphere.transform.position = position;
             tempSphere.transform.localScale = Vector3.one * size;
 
-            Debug.Log($"[BasisGizmoManager] Created SphereGizmo with ID {linkedID}");
+            BasisDebug.Log($"Created SphereGizmo with ID {linkedID}", BasisDebug.LogTag.Gizmo);
             return true;
         }
         else
         {
-            Debug.LogError($"[BasisGizmoManager] Prefab missing BasisGizmos component.");
+            BasisDebug.LogError($"Prefab missing BasisGizmos component.", BasisDebug.LogTag.Gizmo);
             UnityEngine.Object.Destroy(tempSphere);
             return false;
         }
@@ -96,7 +96,7 @@ public static class BasisGizmoManager
     {
         if (!Gizmos.TryGetValue(linkedID, out BasisGizmos gizmo))
         {
-            Debug.LogError($"[BasisGizmoManager] No SphereGizmo found with ID {linkedID}. Use CreateSphereGizmo first.");
+            BasisDebug.LogError($"No SphereGizmo found with ID {linkedID}. Use CreateSphereGizmo first.", BasisDebug.LogTag.Gizmo);
             return false;
         }
 
@@ -119,12 +119,12 @@ public static class BasisGizmoManager
             lineRenderer.endColor = color;
             GizmosLine[linkedID] = basisGizmos;
 
-            Debug.Log($"[BasisGizmoManager] Created LineGizmo with ID {linkedID}");
+            BasisDebug.Log($"Created LineGizmo with ID {linkedID}", BasisDebug.LogTag.Gizmo);
             return true;
         }
         else
         {
-            Debug.LogError($"[BasisGizmoManager] Prefab missing BasisLineGizmos component.");
+            BasisDebug.LogError($"Prefab missing BasisLineGizmos component.", BasisDebug.LogTag.Gizmo);
             UnityEngine.Object.Destroy(gizmoObject);
             return false;
         }
@@ -134,7 +134,7 @@ public static class BasisGizmoManager
         linkedID = CreateNewID();
         if (GizmosLine.ContainsKey(linkedID))
         {
-            Debug.LogError($"[BasisGizmoManager] LineGizmo with ID {linkedID} already exists. Use UpdateLineGizmo to modify it.");
+            BasisDebug.LogError($"LineGizmo with ID {linkedID} already exists. Use UpdateLineGizmo to modify it.", BasisDebug.LogTag.Gizmo);
             return false;
         }
         if (LoadedLineGizmo == null)
@@ -144,7 +144,7 @@ public static class BasisGizmoManager
         }
         if (LoadedLineGizmo == null)
         {
-            Debug.LogError($"[BasisGizmoManager] Failed to load LineGizmo prefab from {GameobjectGizmoLine}");
+            BasisDebug.LogError($"Failed to load LineGizmo prefab from {GameobjectGizmoLine}", BasisDebug.LogTag.Gizmo);
             return false;
         }
         return CreateLineGizmo(linkedID, start, end, width, color, LoadedLineGizmo);
@@ -157,7 +157,7 @@ public static class BasisGizmoManager
     {
         if (!GizmosLine.TryGetValue(linkedID, out BasisLineGizmos gizmo))
         {
-            Debug.LogError($"[BasisGizmoManager] No LineGizmo found with ID {linkedID}. Use CreateLineGizmo first.");
+            BasisDebug.LogError($"No LineGizmo found with ID {linkedID}. Use CreateLineGizmo first.", BasisDebug.LogTag.Gizmo);
             return false;
         }
 
@@ -174,16 +174,16 @@ public static class BasisGizmoManager
         if (Gizmos.Remove(linkedID, out BasisGizmos gizmo))
         {
             UnityEngine.Object.Destroy(gizmo.gameObject);
-            Debug.Log($"[BasisGizmoManager] Destroyed SphereGizmo with ID {linkedID}");
+            BasisDebug.Log($"Destroyed SphereGizmo with ID {linkedID}", BasisDebug.LogTag.Gizmo);
         }
         else if (GizmosLine.Remove(linkedID, out BasisLineGizmos lineGizmo))
         {
             UnityEngine.Object.Destroy(lineGizmo.gameObject);
-            Debug.Log($"[BasisGizmoManager] Destroyed LineGizmo with ID {linkedID}");
+            BasisDebug.Log($"Destroyed LineGizmo with ID {linkedID}", BasisDebug.LogTag.Gizmo);
         }
         else
         {
-            Debug.LogWarning($"[BasisGizmoManager] No Gizmo found with ID {linkedID} to destroy.");
+            BasisDebug.LogWarning($"No Gizmo found with ID {linkedID} to destroy.", BasisDebug.LogTag.Gizmo);
         }
     }
 
